@@ -7,5 +7,4 @@ public class Smartphone
     public int StartPrice { get; set; }
     public string OperatingSystem { get; set; }
 
-
 }

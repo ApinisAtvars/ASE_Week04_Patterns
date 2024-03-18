@@ -12,3 +12,4 @@ D:\Advanced_Software_Engineering_repos\ASE_Week04_Patterns\Ex01\obj\Debug\net8.0
 D:\Advanced_Software_Engineering_repos\ASE_Week04_Patterns\Ex01\obj\Debug\net8.0\Ex01.pdb
 D:\Advanced_Software_Engineering_repos\ASE_Week04_Patterns\Ex01\obj\Debug\net8.0\Ex01.genruntimeconfig.cache
 D:\Advanced_Software_Engineering_repos\ASE_Week04_Patterns\Ex01\obj\Debug\net8.0\ref\Ex01.dll
+D:\Advanced_Software_Engineering_repos\ASE_Week04_Patterns\Ex01\obj\Debug\net8.0\Ex01.sourcelink.json

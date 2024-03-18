@@ -1,8 +1,10 @@
+using System.Text;
+
 public interface ISmartphoneRepository
 {
     List<Smartphone> GetSmartphones();
     Smartphone GetSmartphoneById(byte id);
-    void AddSmartphone(string id, string brand, string type, string releaseyear, string startprice, string operatingsystem);
+    void AddSmartphone(Smartphone smartphone);
 }
 
 public class SmarthoneRepository : ISmartphoneRepository
@@ -29,36 +31,27 @@ public class SmarthoneRepository : ISmartphoneRepository
 
     public Smartphone GetSmartphoneById(byte id)
     {
-        Smartphone s1 = new Smartphone();
-        foreach (Smartphone smartphone in GetSmartphones())
-        {
-            if (smartphone.Id == id)
-            {
-                s1 = smartphone;
-            }
-        }
+        Smartphone s1 = GetSmartphones().Where(s => s.Id == id).SingleOrDefault();
+
         return s1;
     }
 
-    public void AddSmartphone(string id, string brand, string type, string releaseyear, string startprice, string operatingsystem)
+    public void AddSmartphone(Smartphone smartphone)
     {
         string[] phonedetails = new string[] {
-            id,
-            brand,
-            type,
-            releaseyear,
-            startprice,
-            operatingsystem
+            smartphone.Id.ToString(),
+            smartphone.Brand,
+            smartphone.Type,
+            smartphone.ReleaseYear.ToString(),
+            smartphone.StartPrice.ToString(),
+            smartphone.OperatingSystem
         };
 
 
 
-        using (StreamWriter sw = new StreamWriter("./Files/smartphones.csv"))
+        using (StreamWriter sw = new StreamWriter("./Files/smartphones.csv", true))
         {
-            foreach (string detail in phonedetails)
-            {
-                sw.WriteLine(string.Join(",", detail));
-            }
+            sw.WriteLine(string.Join(",", phonedetails));
         }
     }
 }
