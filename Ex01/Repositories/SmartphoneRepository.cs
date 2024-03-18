@@ -38,6 +38,13 @@ public class SmarthoneRepository : ISmartphoneRepository
 
     public void AddSmartphone(Smartphone smartphone)
     {
+
+
+        var allsmartphones = GetSmartphones();
+        byte maxid = allsmartphones.Max(s => s.Id);
+        maxid++;
+        smartphone.Id = maxid;
+
         string[] phonedetails = new string[] {
             smartphone.Id.ToString(),
             smartphone.Brand,
@@ -46,8 +53,6 @@ public class SmarthoneRepository : ISmartphoneRepository
             smartphone.StartPrice.ToString(),
             smartphone.OperatingSystem
         };
-
-
 
         using (StreamWriter sw = new StreamWriter("./Files/smartphones.csv", true))
         {

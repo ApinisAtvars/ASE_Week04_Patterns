@@ -44,8 +44,6 @@ while (choice != 4)
             }
             break;
         case 3:
-            Console.WriteLine("Enter phone Id");
-            byte id = byte.Parse(Console.ReadLine());
             Console.WriteLine("Enter a brand");
             string brand = Console.ReadLine();
             Console.WriteLine("Enter the type");
@@ -58,7 +56,6 @@ while (choice != 4)
             string os = Console.ReadLine();
             Smartphone smartphone = new Smartphone()
             {
-                Id = id,
                 Brand = brand,
                 Type = type2,
                 ReleaseYear = releaseyear,
