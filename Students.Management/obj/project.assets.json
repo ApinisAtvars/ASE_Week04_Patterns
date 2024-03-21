@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Advanced_Software_Engineering_repos\\ASE_Week04_Patterns\\Ex02\\Ex02.csproj",
-      "projectName": "Ex02",
-      "projectPath": "D:\\Advanced_Software_Engineering_repos\\ASE_Week04_Patterns\\Ex02\\Ex02.csproj",
+      "projectUniqueName": "D:\\Advanced_Software_Engineering_repos\\ASE_Week04_Patterns\\Students.Management\\Students.Management.csproj",
+      "projectName": "Students.Management",
+      "projectPath": "D:\\Advanced_Software_Engineering_repos\\ASE_Week04_Patterns\\Students.Management\\Students.Management.csproj",
       "packagesPath": "C:\\Users\\Atvar\\.nuget\\packages\\",
-      "outputPath": "D:\\Advanced_Software_Engineering_repos\\ASE_Week04_Patterns\\Ex02\\obj\\",
+      "outputPath": "D:\\Advanced_Software_Engineering_repos\\ASE_Week04_Patterns\\Students.Management\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Atvar\\AppData\\Roaming\\NuGet\\NuGet.Config"
