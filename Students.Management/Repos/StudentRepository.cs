@@ -43,6 +43,9 @@ public class StudentRepository : IStudentRepository
             student.Email = columns[2];
             student.Class = columns[3];
             student.BirthDate = DateOnly.Parse(columns[4]);
+
+            students.Add(student);
+
         }
         return students;
     }

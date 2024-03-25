@@ -1,3 +1,4 @@
+using System.Globalization;
 using Students.Management.Library.Models;
 
 namespace Students.Management;
@@ -9,18 +10,19 @@ public class CourseManagement
     public StudentCoursesService studentCoursesService1;
     public CourseManagement()
     {
-        StudentRepository studentRepository = new StudentRepository();
-        StudentService studentService = new StudentService(studentRepository);
-        studentService1 = studentService;
-
-        CourseRepository courseRepository = new CourseRepository();
-        CourseService courseService = new CourseService(courseRepository);
-        courseService1 = courseService;
 
         StudentCoursesRepository studentCoursesRepository = new StudentCoursesRepository();
         StudentCoursesService studentCoursesService = new StudentCoursesService(studentCoursesRepository);
         studentCoursesService1 = studentCoursesService;
 
+        CourseRepository courseRepository = new CourseRepository();
+        StudentRepository studentRepository = new StudentRepository();
+
+        CourseService courseService = new CourseService(courseRepository, studentCoursesRepository, studentRepository);
+        courseService1 = courseService;
+
+        StudentService studentService = new StudentService(studentRepository, studentCoursesRepository, courseRepository);
+        studentService1 = studentService;
     }
 
 
@@ -98,27 +100,19 @@ public class CourseManagement
     }
 
     private void ListStudentsInCourse()
-    //TODO
-    //PRINT EVERY STUDENT OUT
     {
         courseService1.GetCourses().ForEach(c => Console.WriteLine($"Id: {c.Id}, Name: {c.Name}, Price: {c.Price}"));
         Console.WriteLine("Enter Course Id");
         int desired_course = int.Parse(Console.ReadLine());
-        List<int> students_in_course = new List<int>();
-        foreach (KeyValuePair<int, int> keyValuePair in studentCoursesService1.GetStudentCourse())
+
+        foreach (Course course in courseService1.GetCourses())
         {
-            if (keyValuePair.Value == desired_course)
+            if (course.Id == desired_course)
             {
-                students_in_course.Add(keyValuePair.Key);
-            }
-        }
-        foreach (Student student in studentService1.GetStudents())
-        {
-            foreach (int id in students_in_course)
-            {
-                if (student.Id == id)
+                foreach (Student student in course.Students)
                 {
-                    Console.WriteLine($"Student: {student.Id}   Name: {student.Name}");
+                    Console.WriteLine();
+                    Console.WriteLine($"Student: {student.Name}");
                 }
             }
         }
@@ -139,6 +133,13 @@ public class CourseManagement
         foreach (Student student in studentService1.GetStudents())
         {
             Console.WriteLine($"Student; {student.Id}   Name: {student.Name}");
+            if (student.Courses != null)
+            {
+                foreach (Course course in student.Courses)
+                {
+                    Console.WriteLine($"Course: {course.Name}");
+                }
+            }
         }
     }
 
@@ -179,41 +180,17 @@ public class CourseManagement
         Console.WriteLine("Enter Student Class:");
         string studentclass = Console.ReadLine();
         Console.WriteLine("Enter Student Birthdate (d/m/YYYY)");
-        DateOnly birthdate = DateOnly.Parse(Console.ReadLine());
+        string birthdate = Console.ReadLine();
+        DateOnly dateOnly = DateOnly.Parse(birthdate, new CultureInfo("lv-LV"));
         Student newstudent = new Student()
         {
             Name = name,
             Email = email,
             Class = studentclass,
-            BirthDate = birthdate
+            BirthDate = dateOnly,
         };
         studentService1.AddStudent(newstudent);
     }
-
-    // private void Init()
-    // {
-
-    //     _students = new List<Student>(){
-    //         new Student(){Id = 1, Name = "John", Email = "john@doe.com", Class = "A1", BirthDate = new DateOnly(2000,1,1), Courses = new List<Course>()},
-    //         new Student(){Id = 2, Name = "Jane", Email = "jane@doe.com", Class = "B1", BirthDate = new DateOnly(2000,5,4),  Courses = new List<Course>()},
-    //     };
-
-    //     _courses = new List<Course>(){
-    //         new Course(){Id = 1, Name = "C#", Price =  350M, Students = new List<Student>()},
-    //         new Course(){Id = 2, Name = "Java", Price =  350M,   Students = new List<Student>()},
-    //         new Course(){Id = 3, Name = "Python",  Price =  350M, Students = new List<Student>()},
-    //         new Course(){Id = 4, Name = "JavaScript",  Price =  350M,  Students = new List<Student>()},
-    //         new Course(){Id = 5, Name = "C++", Price =  350M,  Students = new List<Student>()},
-    //         new Course(){Id = 6, Name = "PHP", Price =  350M,  Students = new List<Student>()},
-    //         new Course(){Id = 7, Name = "Ruby",  Price =  150M, Students = new List<Student>()},
-    //         new Course(){Id = 8, Name = "Swift", Price =  250M, Students = new List<Student>()},
-    //     };
-
-    //     _students[0].Courses.Add(_courses[0]);
-    //     _students[0].Courses.Add(_courses[1]);
-    //     _students[0].Courses.Add(_courses[2]);
-
-    // }
 
     #endregion
 
